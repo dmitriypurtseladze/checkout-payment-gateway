@@ -1,14 +1,14 @@
-#Payment Gateway: 
+# Payment Gateway: 
 Responsible for validating requests, storing card information, forwarding payment requests, and accepting payment responses to and from the acquiring bank.
 
-#Setup instructions:
+# Setup instructions:
  Please run the following commands:
  - docker-compose build
  - docker-compose up -d
  
  The build runs Unit tests and Integration tests.
  
- #API description and documentation:
+ # API description and documentation:
   To check and try the endpoints please go to http://localhost:8090/swagger/index.html.
   There is swagger documentation with an example of how to use API endpoints.
   
@@ -25,7 +25,7 @@ Responsible for validating requests, storing card information, forwarding paymen
   ProcessPayment API request example:
   - ```curl --location --request POST 'http://localhost:8090/api/v1.0/payments' --header 'x-api-key: checkout' --header 'Content-Type: application/json' --data-raw '{"cvv":123,"cardNumber":"4444-4444-4444-4444","expiry":"12/21","fullName":"Dmitriy Purtseladze","amount":100,"currency":"EUR"}'```
   
-  #Design decisions:
+  # Design decisions:
   The application was built according to SOLID principles, Domain-Driven Design, Onion Architecture, and Command and Query Responsibility Segregation (CQRS) patterns. 
   The main purpose of that is to have clean code and architecture. Moreover, it's easier to build microservices using those approaches.
   
@@ -65,7 +65,7 @@ Responsible for validating requests, storing card information, forwarding paymen
   Encryption is made using the secret key, that is provided as environment variable ```Aes_Key``` and must be stored in a key vault. 
   On ```GET``` request the code decrypts the number, masks and returns it to the API client.
   
-  #Libraries used:
+  # Libraries used:
   - Swagger - provides UI with up to date documentation;
   - MediatR - helps to implement CQRS pattern;
   - Autofac - used for dependencies injection and helps to reduce coupling between the application layers, because every layer can be "packed" as a module;
