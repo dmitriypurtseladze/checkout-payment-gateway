@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+
+  # Application container
+  dotnet:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      PORT: 8090
+      HOST: 0.0.0.0
+      AuthSettings__ApiKey: checkout
+      ConnectionSettings__PostgresConnection: "User ID=checkout;Password=checkout;Host=postgres;Port=5432;Database=checkout"
+      ApiVersionSettings__MajorVersion: "1"
+      ApiVersionSettings__MinorVersion: "0"
+      ApiVersionSettings__Title: "Payment Gateway API"
+      AesKey: ""
+    volumes:
+      - ./:/server/http
+    links:
+      - postgres
+    ports:
+      - "8090:8090"
+
+  postgres:
+    image: onjin/alpine-postgres:9.5
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      LC_ALL: C.UTF-8
+      POSTGRES_USER: checkout
+      POSTGRES_PASSWORD: checkout
+      POSTGRES_DB: checkout
+
+
